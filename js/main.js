@@ -36,6 +36,7 @@ fillNeighborhoodsHTML = (neighborhoods = self.neighborhoods) => {
     const option = document.createElement('option');
     option.innerHTML = neighborhood;
     option.value = neighborhood;
+    option.tabIndex = 0
     select.append(option);
   });
 }
@@ -160,6 +161,7 @@ createRestaurantHTML = (restaurant) => {
 
   const image = document.createElement('img');
   image.className = 'restaurant-img';
+  image.alt = `image of ${restaurant.name} restaurant`;
   image.src = DBHelper.imageUrlForRestaurant(restaurant);
   li.append(image);
 
@@ -178,6 +180,8 @@ createRestaurantHTML = (restaurant) => {
   const more = document.createElement('a');
   more.innerHTML = 'View Details';
   more.href = DBHelper.urlForRestaurant(restaurant);
+  more.tabIndex = 5;
+  more.setAttribute('aria-label', `View Details about ${restaurant.name} restaurant`);
   li.append(more)
 
   return li
@@ -209,3 +213,15 @@ addMarkersToMap = (restaurants = self.restaurants) => {
   });
 } */
 
+// let leafletIcons = document.getElementsByClassName('leaft-marker-icon');		
+// for(icon of leafletIcons){
+//   icon.tabindex = "-1";
+// }
+
+// let list = document.querySelector("#restaurants-list").childNodes;
+// console.log(list)
+
+if (navigator.serviceWorker) {
+    navigator.serviceWorker.register('/sw.js').then(() =>console.log('Registration worked :)'))
+    .catch(() => console.log('Registration failed :('));
+  }
